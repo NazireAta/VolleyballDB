@@ -1,0 +1,43 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Player</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id=""bootstrap-css>
+    <script href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script href="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/js/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Height of the player you played with the most: {{ height_player_played_most }}</h3>
+        </div>
+        <div class="col-md-6">
+            <h3>Players you played with</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Player ID</th>
+                        <th>Player Name</th>
+                        <th>Player Surname</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in player_list %}
+                    <tr>
+                        <td>{{ player.0 }}</td>
+                        <td>{{ player.1 }}</td>
+                        <td>{{ player.2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

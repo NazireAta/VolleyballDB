@@ -1,0 +1,66 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coach</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id=""bootstrap-css>
+    <script href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script href="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/js/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Delete Match Session</h3>
+            <form class="form-group" method="POST" novalidate action="{% url 'coach' %}">
+                {% csrf_token %}
+                {{ delete_match_session_form|crispy }}
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h3>Add Match Session</h3>
+            <form class="form-group" method="POST" novalidate action="{% url 'coach' %}">
+                {% csrf_token %}
+                {{ add_match_session_form|crispy }}
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Create Squad</h3>
+            <form class="form-group" method="POST" novalidate action="{% url 'coach' %}">
+                {% csrf_token %}
+                {{ create_squad_form|crispy }}
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h3>Stadium List</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Stadium ID</th>
+                        <th>Stadium Name</th>
+                        <th>Stadium Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stadium in stadium_list %}
+                    <tr>
+                        <td>{{ stadium.0 }}</td>
+                        <td>{{ stadium.1 }}</td>
+                        <td>{{ stadium.2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

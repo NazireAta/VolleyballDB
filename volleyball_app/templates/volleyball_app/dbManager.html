@@ -1,0 +1,51 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Database Manager</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id=""bootstrap-css>
+    <script href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script href="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/js/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Add Player</h3>
+            <form class="form-group" method="POST" novalidate action="{% url 'dbManager' %}">
+                {% csrf_token %}
+                {{ add_player_form|crispy }}
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h3>Add Coach</h3>
+            <form class="form-group" method="POST" novalidate action="{% url 'dbManager' %}">
+                {% csrf_token %}
+                {{ add_coach_form|crispy }}
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Add Jury</h3>
+            <form class="form-group" method="POST" novalidate action="{% url 'dbManager' %}">
+                {% csrf_token %}
+                {{ add_jury_form|crispy }}
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h3>Update Stadium Name</h3>
+            <form class="form-group" method="POST" novalidate action="{% url 'dbManager' %}">
+                {% csrf_token %}
+                {{ update_stadium_name_form|crispy }}
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
