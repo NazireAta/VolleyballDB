@@ -6,21 +6,8 @@ from volleyball_app.users.forms import *
 # Create your views here.
 
 def index(request):
-    index_text = "view.index function is called"
-    context = {'index_text': index_text}
-    return render(request,'renders/index.html', context)
-
-
-def printNumber(request, number):
-    numbers = [i for i in range(number, number+5)]
-    arr =[]
-    for i in range(len(numbers)):
-        arr.append({"index": i, "number":numbers[i]})
-    return render(request,'renders/numbers.html', {"arr": arr})
-
-def printString(request, string):
-    t = string +"512"
-    return HttpResponse(f"view.printString function is calledwith number {string} and 5 more is {t}")
+    context = {"login_fail": False, "login_form": LoginForm()}
+    return render(request,'volleyball_app/login.html',context)
 
 
 def loginIndex(request):
@@ -60,6 +47,7 @@ def dbManagerIndex(request):
                "add_jury_form": dbManager_addJury(),
                "update_stadium_name_form": dbManager_update_stadium_name()}
     return render(request,'volleyball_app/dbManager.html',context)
+
 
 def dbManager(request):
     if request.method == 'POST':

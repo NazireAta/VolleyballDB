@@ -1,7 +1,5 @@
 def checkCredentials(username, password):
-    print(username)
     if(username=="dbManager"): # if username in username list AND if password matches
-        print(1)
         return "dbManager"
     if(username=="coach"): # if username in username list and if password matches
         return "coach"
