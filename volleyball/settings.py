@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'VolleyDB',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': '12345',
         'HOST':'localhost',
         'PORT':'3306',
     }

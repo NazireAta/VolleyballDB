@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Coach</title>
+    <title>Jury</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id=""bootstrap-css>
     <script href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script href="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -19,9 +19,15 @@
         </div>
         <div class="col-md-6">
             <h3>Rate Session</h3>
+            {% if error_message %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error_message }}
+                </div>
+            {% endif %}
             <form class="form-group" method="POST" novalidate action="{% url 'jury' %}">
                 {% csrf_token %}
                 {{ rate_session_form|crispy }}
+                <input type="hidden" name="argument_name" value="rate">
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>

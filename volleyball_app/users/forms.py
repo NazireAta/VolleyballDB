@@ -18,12 +18,16 @@ class dbManager_addPlayer(forms.Form):
 class dbManager_addCoach(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+    surname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Surname'}))
     nationality = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nationality'}))
 
 
 class dbManager_addJury(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Password'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+    surname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Surname'}))
     nationality = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nationality'}))
 
 class dbManager_update_stadium_name(forms.Form):
@@ -39,7 +43,7 @@ class coach_add_match_session(forms.Form): # session id increment et
     stadium_id = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Stadium ID'}))
     time_slot = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Time Slot'}))
     date = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Date'}))
-    assigned_jury_username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Session ID'}))
+    assigned_jury_username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Assigned Jury Username'}))
     #rating null olacak bunu formda almiyoruz
 
 class coach_create_squad(forms.Form):
