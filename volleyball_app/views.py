@@ -107,8 +107,6 @@ def dbManager(request):
                     mydb.commit()
                     print(mycursor.rowcount, "record inserted. ")
                     sql = "DELETE FROM match_session WHERE session_id = %s"
-                else:
-                    print("form is not valid")
             elif(argument_value == 'coach'):
                 form = dbManager_addCoach(request.POST)
                 if form.is_valid():
@@ -153,6 +151,12 @@ def dbManager(request):
                     mycursor.execute(sql, val)
                     mydb.commit()
                     print(mycursor.rowcount, "record updated. ")
+                    if(mycursor.rowcount==0):
+                        error_message = "Couldn't find a stadium with the given ID."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/dbManager.html', context)
                     #stadium.save()
         except mysql.connector.Error as error:
             error_message = "Failed due to {}".format(error)
@@ -222,7 +226,18 @@ def coach(request):
                     stadium_id = form.cleaned_data['stadium_id']
                     time_slot = form.cleaned_data['time_slot']
                     date = form.cleaned_data['date']
-                    assigned_jury_username = form.cleaned_data['assigned_jury_username']
+                    jury_name = form.cleaned_data['jury_name']
+                    jury_surname = form.cleaned_data['jury_surname']
+                    sql = "SELECT username FROM jury WHERE name = '{}' AND surname = '{}'".format(jury_name, jury_surname)
+                    mycursor.execute(sql)
+                    jury_username = mycursor.fetchall()
+                    if len(jury_username) == 0:
+                        error_message = "Couldn't find a jury with the given name and surname."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/coach.html', context)
+                    assigned_jury_username = jury_username[0][0]
 
                     cur_user = request.session.get('name')
                     mycursor.execute("SELECT team_ID FROM Team WHERE coach_username = '{}' AND CURDATE() BETWEEN STR_TO_DATE(contract_start, '%d.%m.%Y') AND STR_TO_DATE(contract_finish, '%d.%m.%Y');".format(cur_user))  

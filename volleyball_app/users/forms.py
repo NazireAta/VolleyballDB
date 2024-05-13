@@ -43,7 +43,9 @@ class coach_add_match_session(forms.Form): # session id increment et
     stadium_id = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Stadium ID'}))
     time_slot = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Time Slot'}))
     date = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Date'}))
-    assigned_jury_username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Assigned Jury Username'}))
+    jury_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Jury Name'}))
+    jury_surname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Jury Surname'}))
+    #assigned_jury_username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Assigned Jury Username'}))
     #rating null olacak bunu formda almiyoruz
 
 class coach_create_squad(forms.Form):
