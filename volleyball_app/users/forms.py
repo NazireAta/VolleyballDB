@@ -13,6 +13,8 @@ class dbManager_addPlayer(forms.Form):
     date_of_birth = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Date of Birth'}))
     height = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Height'}))
     weight = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Weight'}))
+    positions = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Positions'}))
+    team_ID = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Team ID'}))
 
 
 class dbManager_addCoach(forms.Form):

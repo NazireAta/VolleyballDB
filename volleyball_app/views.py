@@ -4,8 +4,8 @@ from volleyball_app.users.login import *
 from volleyball_app.users.forms import *
 import mysql.connector
 from volleyball_app.models import *
-from django.contrib.auth.decorators import login_required
-from .models import MatchSession
+import re
+
 
 # Create your views here.
 mydb = mysql.connector.connect(
@@ -100,13 +100,52 @@ def dbManager(request):
                     date_of_birth=form.cleaned_data['date_of_birth']
                     height=form.cleaned_data['height']
                     weight=form.cleaned_data['weight']
-                    print(username, password, name, surname, date_of_birth, height, weight)
+                    positions=form.cleaned_data['positions']
+                    team_ID=form.cleaned_data['team_ID']
+
+                    pattern = r'^\d{2}\.\d{2}\.\d{4}$'
+                    if not re.match(pattern, date_of_birth):
+                        error_message = "Date format should be dd.mm.yyyy."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/coach.html', context)
+                    day, month, year = map(int, date_of_birth.split('.'))
+    
+                    # Check if day, month, and year are within valid ranges
+                    if day < 1 or day > 31:
+                        error_message = "Day should be between 1 and 31."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/coach.html', context)
+                    if month < 1 or month > 12:
+                        error_message = "Month should be between 1 and 12."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/coach.html', context)
+                    if year < 0:
+                        error_message = "Year should be a positive number."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/coach.html', context)
+
                     sql = "INSERT INTO player (username, password, name, surname, date_of_birth, height, weight) VALUES (%s, %s, %s, %s, %s, %s, %s)"
                     val = (username, password, name, surname, date_of_birth, height, weight)
                     mycursor.execute(sql, val)
+                    positions = positions.split(", ")
+                    for position in positions:
+                        sql = "INSERT INTO playerpositions (username, position) VALUES (%s, %s)"
+                        val = (username, position)
+                        mycursor.execute(sql, val)
+                    sql = "INSERT INTO playerteams (username, team) VALUES (%s, %s)"
+                    val = (username, team_ID)
+                    mycursor.execute(sql, val)
+
                     mydb.commit()
                     print(mycursor.rowcount, "record inserted. ")
-                    sql = "DELETE FROM match_session WHERE session_id = %s"
             elif(argument_value == 'coach'):
                 form = dbManager_addCoach(request.POST)
                 if form.is_valid():
@@ -228,6 +267,37 @@ def coach(request):
                     date = form.cleaned_data['date']
                     jury_name = form.cleaned_data['jury_name']
                     jury_surname = form.cleaned_data['jury_surname']
+
+                    pattern = r'^\d{2}\.\d{2}\.\d{4}$'
+                    if not re.match(pattern, date):
+                        error_message = "Date format should be dd.mm.yyyy."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/coach.html', context)
+                    day, month, year = map(int, date.split('.'))
+    
+                    # Check if day, month, and year are within valid ranges
+                    if day < 1 or day > 31:
+                        error_message = "Day should be between 1 and 31."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/coach.html', context)
+                    if month < 1 or month > 12:
+                        error_message = "Month should be between 1 and 12."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/coach.html', context)
+                    if year < 0:
+                        error_message = "Year should be a positive number."
+                        print(error_message)
+                        context['error_message'] = error_message 
+                        context['argument_value'] = argument_value
+                        return render(request, 'volleyball_app/coach.html', context)
+
+
                     sql = "SELECT username FROM jury WHERE name = '{}' AND surname = '{}'".format(jury_name, jury_surname)
                     mycursor.execute(sql)
                     jury_username = mycursor.fetchall()
