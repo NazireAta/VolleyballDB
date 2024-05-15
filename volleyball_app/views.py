@@ -11,7 +11,7 @@ import re
 mydb = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="12345",
+        password="password",
         database="volleydb"
     )
 mycursor = mydb.cursor()
@@ -239,7 +239,7 @@ def coach(request):
                 print(error_message)
                 context['error_message'] = error_message
                 context['argument_value'] = argument_value
-                return render(request, 'volleyball_app/dbManager.html', context)
+                return render(request, 'volleyball_app/coach.html', context)
             if argument_value == 'delete_match':
             # Check which form was submitted and process accordingly
                 form = coach_delete_match_session(request.POST)
@@ -424,7 +424,7 @@ def jury(request):
                 print(error_message)
                 context['error_message'] = error_message
                 context['argument_value'] = argument_value
-                return render(request, 'volleyball_app/dbManager.html', context)
+                return render(request, 'volleyball_app/jury.html', context)
             # Check which form was submitted and process accordingly
             if argument_value == 'rate':
                 form = jury_rate(request.POST)
